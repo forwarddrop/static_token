@@ -1,0 +1,14 @@
+services:
+  static_token.route_processor:
+    class: \Drupal\static_token\RouteProcessorStaticToken
+    arguments: ['@static_token.generator']
+    tags:
+      - { name: route_processor_outbound }
+  static_token.generator:
+    class: \Drupal\static_token\StaticTokenGenerator
+    arguments: ['@private_key']
+  static_token.access_check:
+    class: \Drupal\static_token\StaticTokenAccessCheck
+    arguments: ['@static_token.generator']
+    tags:
+      - { name: access_check, applies_to: _static_token, needs_incoming_request: TRUE }

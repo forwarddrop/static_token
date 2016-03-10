@@ -1,0 +1,4 @@
+name: Static token
+type: module
+description: Add a way for routes to be protected via a token (like CSRF protection) but statically.
+core: 8.x
