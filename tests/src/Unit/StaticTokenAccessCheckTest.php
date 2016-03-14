@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Route;
 
 /**
  * @coversDefaultClass \Drupal\static_token\StaticTokenAccessCheck
+ * @group static_token
  */
 class StaticTokenAccessCheckTest extends \PHPUnit_Framework_TestCase {
 
