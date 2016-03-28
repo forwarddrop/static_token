@@ -14,6 +14,7 @@ use Drupal\static_token\StaticTokenAccessCheck;
 use Drupal\static_token\StaticTokenGenerator;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Route;
 
@@ -52,7 +53,7 @@ class StaticTokenAccessCheckTest extends \PHPUnit_Framework_TestCase {
     $route = new Route('/example/{id}', [], ['_static_token' => '{id}']);
     $request = Request::create('/example/314', 'GET', ['static_token' => '12345123123123123123123123123213123123']);
     $route_match = $this->prophesize(RouteMatchInterface::class);
-    $route_match->getRawParameters()->willReturn(['id' => '314']);
+    $route_match->getRawParameters()->willReturn(new ParameterBag(['id' => '314']));
 
     $result = $access_check->access($route, $request, $route_match->reveal());
     $this->assertInstanceOf(AccessResultInterface::class, $result);
@@ -74,7 +75,7 @@ class StaticTokenAccessCheckTest extends \PHPUnit_Framework_TestCase {
     $route = new Route('/example/{id}', [], ['_static_token' => '{id}']);
     $request = Request::create('/example/314', 'GET', ['static_token' => 'KhvAQwnNyEhrD4BjR2skBm_axpbBTYnyDbu8EUJNPQE']);
     $route_match = $this->prophesize(RouteMatchInterface::class);
-    $route_match->getRawParameters()->willReturn(['id' => '314']);
+    $route_match->getRawParameters()->willReturn(new ParameterBag(['id' => '314']));
 
     $result = $access_check->access($route, $request, $route_match->reveal());
     $this->assertInstanceOf(AccessResultInterface::class, $result);

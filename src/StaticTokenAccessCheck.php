@@ -51,7 +51,7 @@ class StaticTokenAccessCheck implements AccessInterface {
     }
 
     $token = $request->query->get('static_token');
-    $parameters = $route_match->getRawParameters();
+    $parameters = $route_match->getRawParameters()->all();
     $static_token_configuration = $route->getRequirement('_static_token');
     if ($static_token_configuration === 'TRUE') {
       $access_result = AccessResult::allowedIf($this->staticTokenGenerator->validate($token, ''));
